@@ -1,68 +1,68 @@
 .header-menu__icon {
-	display: block;
-	position: absolute;
-	top: 28px;
-	left: 10px;
-	width: 30px;
-	height: 18px;
-	cursor: pointer;
-	z-index: 5;
+  display: block;
+  position: absolute;
+  top: 28px;
+  left: 10px;
+  width: 30px;
+  height: 18px;
+  cursor: pointer;
+  z-index: 5;
 }
 .header-menu__icon span {
-	-webkit-transition: all 0.3s ease 0s;
-	-moz-transition: all 0.3s ease 0s;
-	-ms-transition: all 0.3s ease 0s;
-	-o-transition: all 0.3s ease 0s;
-	transition: all 0.3s ease 0s;
-	top: 8px;
-	left: 0px;
-	position: absolute;
-	width: 100%;
-	height: 2px;
-	background-color: #000;
+  -webkit-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -ms-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+  top: 8px;
+  left: 0px;
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: #000;
 }
 .header-menu__icon span:first-child {
-	top: 0px;
+  top: 0px;
 }
 .header-menu__icon span:last-child {
-	top: auto;
-	bottom: 0px;
+  top: auto;
+  bottom: 0px;
 }
 .header-menu__icon.active span {
-	-moz-transform: scale(0);
-	-ms-transform: scale(0);
-	-webkit-transform: scale(0);
-	-o-transform: scale(0);
-	transform: scale(0);
+  -moz-transform: scale(0);
+  -ms-transform: scale(0);
+  -webkit-transform: scale(0);
+  -o-transform: scale(0);
+  transform: scale(0);
 }
 .header-menu__icon.active span:first-child {
-	-moz-transform: rotate(-135deg);
-	-ms-transform: rotate(-135deg);
-	-webkit-transform: rotate(-135deg);
-	-o-transform: rotate(-135deg);
-	transform: rotate(-135deg);
-	top: 8px;
+  -moz-transform: rotate(-135deg);
+  -ms-transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+  -o-transform: rotate(-135deg);
+  transform: rotate(-135deg);
+  top: 8px;
 }
 .header-menu__icon.active span:last-child {
-	-moz-transform: rotate(135deg);
-	-ms-transform: rotate(135deg);
-	-webkit-transform: rotate(135deg);
-	-o-transform: rotate(135deg);
-	transform: rotate(135deg);
-	bottom: 8px;
+  -moz-transform: rotate(135deg);
+  -ms-transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  -o-transform: rotate(135deg);
+  transform: rotate(135deg);
+  bottom: 8px;
 }
 .header-menu {
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	overflow: auto;
-	left: -120%;
-	top: 0;
-	background-color: #fff;
-	transition: all ease 0.4s;
-	&.active {
-		margin: 71px 0 10px 0;
-		padding-left: 10px;
-		left: 0;
-	}
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  left: -120%;
+  top: 0;
+  background-color: #fff;
+  transition: all ease 0.4s;
+  &.active {
+    margin: 71px 0 10px 0;
+    padding-left: 10px;
+    left: 0;
+  }
 }
