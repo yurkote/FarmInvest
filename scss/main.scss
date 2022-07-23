@@ -1,16 +1,5 @@
-@mixin font($font_name, $file_name, $weight, $style) {
-  @font-face {
-    font-family: $font_name;
-    font-display: swap;
-    src: url("../fonts/#{$file_name}.woff") format("woff"),
-      url("../fonts/#{$file_name}.woff2") format("woff2");
-    font-weight: #{$weight};
-    font-style: #{$style};
-  }
-}
 @import url("https://fonts.googleapis.com/css?family=League+Spartan:300,regular,500,600,700&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Lato:regular,500&display=swap");
-@import "fonts";
 @import "nullstyle";
 @import "mixins";
 @import "menu_button";
