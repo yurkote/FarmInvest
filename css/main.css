@@ -166,10 +166,19 @@ body {
     overflow: hidden;
 }
 
+[class*=__container_mini] {
+    max-width: 1440px;
+    padding: 0 10px;
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
 .button {
     height: 50px;
     line-height: 15px;
     padding: 18px 33px;
+    text-align: center;
     color: #000;
     background-color: #fff;
     border-radius: 10px;
