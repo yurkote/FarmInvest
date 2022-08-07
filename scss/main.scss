@@ -45,6 +45,7 @@ body {
   color: #000;
   background-color: #fff;
   border-radius: 10px;
+  white-space: nowrap;
   &_o {
     border: 1px solid rgb(255, 255, 255);
     background-color: transparent;
@@ -85,9 +86,19 @@ textarea.input {
 //////////////////////////////////////////////
 
 .header {
-  margin: 25px 0;
+  padding: 25px 0;
   overflow: hidden;
   min-height: 64px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 18;
+  transition: all 0.3s ease 0s;
+}
+.header-scroll {
+  padding: 20px 0;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 .header__container {
   display: flex;
@@ -107,30 +118,58 @@ textarea.input {
 .menu__list {
   display: flex;
   justify-content: space-between;
+  @media screen and (max-width: 767px) {
+    position: fixed;
+    z-index: 18;
+    overflow: auto;
+    top: 0;
+    left: -100%;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    background-color: #000;
+    transition: all ease 0.4s;
+    li {
+      a {
+        font-size: 35px;
+      }
+    }
+    &.active {
+      left: 0;
+    }
+  }
 }
 .menu__item {
-  font-family: Lato;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 22px;
-  padding: 0 22px;
-  transition: all 0.3s;
-  &:hover {
-    cursor: pointer;
-    color: #157415;
-    transform: translateY(-2px);
-  }
-  &:active {
-    color: #105810;
-    transform: translateY(1px);
-  }
-  @media screen and (max-width: 920px) {
-    font-size: 16px;
-    padding: 0 14px;
-    line-height: 16px;
-  }
-  @media screen and (max-width: 767px) {
-    display: none;
+  a {
+    font-family: Lato;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    padding: 0 22px;
+    transition: all 0.3s;
+    color: #fff;
+    &:hover {
+      cursor: pointer;
+      color: #157415;
+      transform: translateY(-2px);
+    }
+    &:active {
+      color: #105810;
+      transform: translateY(1px);
+    }
+    @media screen and (max-width: 920px) {
+      font-size: 16px;
+      padding: 0 14px;
+      line-height: 16px;
+    }
+    @media screen and (max-width: 767px) {
+      // display: none;
+    }
   }
 }
 
@@ -509,6 +548,74 @@ textarea.input {
     font-size: 18px;
   }
 }
+.content-spollers {
+  padding: 50px 0;
+}
+.content-spollers__spoller {
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  &[open] {
+    summary {
+      &::before {
+        content: "\2227";
+        position: absolute;
+        overflow: hidden;
+        font-size: 30px;
+        color: $greenColor;
+        font-weight: 300;
+        height: 100%;
+        top: 0;
+        right: 25px;
+        display: flex;
+        align-items: center;
+        transform: rotateX(50deg);
+      }
+    }
+  }
+  summary {
+    padding: 25px 50px 25px 25px;
+    font-size: 30px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    display: flex;
+    height: 100%;
+    position: relative;
+    @media screen and (max-width: 425px) {
+      font-size: 20px;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+    &::before {
+      content: "\2228";
+      position: absolute;
+      overflow: hidden;
+      font-size: 30px;
+      color: $greenColor;
+      font-weight: 300;
+      height: 100%;
+      top: 0;
+      right: 25px;
+      display: flex;
+      align-items: center;
+      transform: rotateX(50deg);
+    }
+    &::marker {
+      display: none;
+      content: "";
+    }
+  }
+  p {
+    padding: 25px;
+    font-size: 22px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    @media screen and (max-width: 425px) {
+      font-size: 18px;
+    }
+  }
+}
 .content__item-image {
   flex: 1 1 50%;
   @media screen and (max-width: 992px) {
@@ -579,7 +686,7 @@ textarea.input {
 }
 
 //////////////////////////////////////////////
-//////////////// content ////////////////
+//////////////// responses ////////////////
 //////////////////////////////////////////////
 
 .response {
@@ -670,7 +777,7 @@ textarea.input {
 }
 
 //////////////////////////////////////////////
-//////////////// content ////////////////
+//////////////// apps ////////////////
 //////////////////////////////////////////////
 
 .apps {
@@ -756,7 +863,7 @@ textarea.input {
 }
 
 //////////////////////////////////////////////
-//////////////// content ////////////////
+//////////////// footer ////////////////
 //////////////////////////////////////////////
 
 .footer-top {

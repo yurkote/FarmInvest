@@ -58,11 +58,11 @@
   overflow: auto;
   left: -120%;
   top: 0;
-  background-color: #fff;
+  background-color: rgb(0, 0, 0);
   transition: all ease 0.4s;
   &.active {
-    margin: 71px 0 10px 0;
-    padding-left: 10px;
-    left: 0;
+    // margin: 0px 0 10px 0;
+    // padding-left: 10px;
+    // left: 0;
   }
 }
