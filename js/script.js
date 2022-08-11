@@ -163,3 +163,133 @@ function ibg() {
   });
 }
 ibg();
+
+function headerScroll() {
+  // let addWindowScrollEvent = true;
+  const header = document.querySelector("header.header");
+  const headerShow = header.hasAttribute("data-scroll-show");
+  const headerShowTimer = header.dataset.scrollShow
+    ? header.dataset.scrollShow
+    : 500;
+  const startPoint = header.dataset.scroll ? header.dataset.scroll : 1;
+  let scrollDirection = 0;
+  let timer;
+  document.addEventListener("scroll", function (e) {
+    const scrollTop = window.scrollY;
+    clearTimeout(timer);
+    if (scrollTop >= startPoint) {
+      !header.classList.contains("_header-scroll")
+        ? header.classList.add("_header-scroll")
+        : null;
+      // console.log(`scrollTop: ${scrollTop} > scrollDirection: ${scrollDirection}`);
+      if (headerShow) {
+        if (scrollTop > scrollDirection) {
+          // downscroll code
+          header.classList.contains("_header-show")
+            ? header.classList.remove("_header-show")
+            : null;
+        } else {
+          // upscroll code
+          !header.classList.contains("_header-show")
+            ? header.classList.add("_header-show")
+            : null;
+        }
+        timer = setTimeout(() => {
+          !header.classList.contains("_header-show")
+            ? header.classList.add("_header-show")
+            : null;
+        }, headerShowTimer);
+      }
+    } else {
+      header.classList.contains("_header-scroll")
+        ? header.classList.remove("_header-scroll")
+        : null;
+      if (headerShow) {
+        header.classList.contains("_header-show")
+          ? header.classList.remove("_header-show")
+          : null;
+      }
+    }
+    scrollDirection = scrollTop <= 0 ? 0 : scrollTop;
+  });
+}
+headerScroll();
+
+class MousePRLX {
+  constructor(props, data = null) {
+    let defaultConfig = {
+      init: true,
+      logging: true,
+    };
+    this.config = Object.assign(defaultConfig, props);
+    if (this.config.init) {
+      const paralaxMouse = document.querySelectorAll("[data-prlx-mouse]");
+      if (paralaxMouse.length) {
+        this.paralaxMouseInit(paralaxMouse);
+      }
+    }
+  }
+  paralaxMouseInit(paralaxMouse) {
+    paralaxMouse.forEach((el) => {
+      const paralaxMouseWrapper = el.closest("[data-prlx-mouse-wrapper]");
+
+      // Коэф. X
+      const paramСoefficientX = el.dataset.prlxCx ? +el.dataset.prlxCx : 100;
+      // Коэф. У
+      const paramСoefficientY = el.dataset.prlxCy ? +el.dataset.prlxCy : 100;
+      // Напр. Х
+      const directionX = el.hasAttribute("data-prlx-dxr") ? -1 : 1;
+      // Напр. У
+      const directionY = el.hasAttribute("data-prlx-dyr") ? -1 : 1;
+      // Скорость анимации
+      const paramAnimation = el.dataset.prlxA ? +el.dataset.prlxA : 50;
+
+      // Объявление переменных
+      let positionX = 0,
+        positionY = 0;
+      let coordXprocent = 0,
+        coordYprocent = 0;
+
+      setMouseParallaxStyle();
+
+      // Проверяю на наличие родителя, в котором будет считываться положение мыши
+      if (paralaxMouseWrapper) {
+        mouseMoveParalax(paralaxMouseWrapper);
+      } else {
+        mouseMoveParalax();
+      }
+
+      function setMouseParallaxStyle() {
+        const distX = coordXprocent - positionX;
+        const distY = coordYprocent - positionY;
+        positionX = positionX + (distX * paramAnimation) / 1000;
+        positionY = positionY + (distY * paramAnimation) / 1000;
+        el.style.cssText = `transform: translate3D(${
+          (directionX * positionX) / (paramСoefficientX / 10)
+        }%,${(directionY * positionY) / (paramСoefficientY / 10)}%,0);`;
+        requestAnimationFrame(setMouseParallaxStyle);
+      }
+      function mouseMoveParalax(wrapper = window) {
+        wrapper.addEventListener("mousemove", function (e) {
+          const offsetTop = el.getBoundingClientRect().top + window.scrollY;
+          if (
+            offsetTop >= window.scrollY ||
+            offsetTop + el.offsetHeight >= window.scrollY
+          ) {
+            // Получение ширины и высоты блока
+            const parallaxWidth = window.innerWidth;
+            const parallaxHeight = window.innerHeight;
+            // Ноль по середине
+            const coordX = e.clientX - parallaxWidth / 2;
+            const coordY = e.clientY - parallaxHeight / 2;
+            // Получаем проценты
+            coordXprocent = (coordX / parallaxWidth) * 100;
+            coordYprocent = (coordY / parallaxHeight) * 100;
+          }
+        });
+      }
+    });
+  }
+}
+// Запускаем и добавляем в объект модулей
+let mousePrlx = new MousePRLX({});
