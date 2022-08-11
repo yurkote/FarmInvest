@@ -7,6 +7,98 @@
 $mainColor: #ffffff;
 $greenColor: #23b123;
 
+html.dark body {
+  transition: all 0.4s;
+  .theme__button {
+    background: url(../img/theme/sun.svg) 0 100% no-repeat;
+  }
+}
+html.light body {
+  transition: all 0.4s;
+  background-color: #ddd;
+  color: #000;
+  .theme__button {
+    background: url(../img/theme/moon.svg) 0 100% no-repeat;
+  }
+  .logo {
+    position: relative;
+    img {
+      width: 0;
+    }
+    &::after {
+      content: "FarmVest";
+      display: block;
+      color: #000;
+      font-size: 37px;
+      letter-spacing: -0.1px;
+      font-weight: 500;
+      margin-bottom: 2px;
+      @media screen and (max-width: 390px) {
+        font-size: 30px;
+      }
+    }
+  }
+  .menu__item a {
+    color: #000;
+  }
+  .partners__img {
+    display: none;
+    &-light {
+      display: block;
+    }
+  }
+  .header {
+    padding: 10px 0;
+  }
+  ._header-scroll {
+    background-color: rgba(255, 255, 255, 0.95);
+  }
+  .button_o {
+    background-color: #c6d3c6;
+    color: #000;
+    border-color: #c6d3c6;
+  }
+  .image-bg {
+    background: rgba(0, 0, 0, 0.1);
+  }
+  .content__item:last-child .content-list__icon {
+    background: rgba(0, 128, 0, 0.1);
+  }
+  .content-spollers__spoller, .response__item, .apps {
+    background: rgba(255, 255, 255, 0.35);
+  }
+  .apps:before, .apps:after {
+    border: 1px solid rgba(255, 255, 255, 0.95);
+  }
+  .footer-bottom-links__link a {
+    color:rgba(0, 0, 0, 1);
+  }
+  .footer-number__tel {
+    color: #000;
+  }
+  .footer-social__link {
+    background-color: transparent;
+  }
+  .menu__icon {
+    span {
+      background-color: #000;
+    }
+  }
+  .menu__list.active{
+    background-color: #DDDDDD;
+  }
+  .menu__item a:hover {
+    color: $greenColor;
+  }
+  .footer-bottom-links__link {
+    a {
+      &:hover {
+        color: $greenColor;
+      }
+    }
+  }
+}
+
 body {
   font-family: "League Spartan", sans-serif;
   font-size: 18px;
@@ -125,6 +217,9 @@ textarea.input {
 }
 .header__logo {
   display: block;
+  @media screen and (max-width: 390px) {
+    max-width: 120px;
+  }
   & img {
     width: 100%;
   }
@@ -133,6 +228,9 @@ textarea.input {
   display: flex;
   align-items: center;
   gap: 20px;
+  @media screen and (max-width: 390px) {
+    gap: 10px;
+  }
 }
 .theme {
   position: relative;
@@ -140,21 +238,20 @@ textarea.input {
   width: 30px;
   transition: all 0.4s;
 }
-.theme__white {
+.theme__button {
   position: absolute;
   height: 30px;
   width: 30px;
-  background: url(../img/theme/sun.svg) 0 100% no-repeat;
   background-color: transparent;
 }
-.theme__dark {
-  position: absolute;
-  height: 30px;
-  width: 30px;
-  background: url(../img/theme/moon.svg) 0 100% no-repeat;
-  background-color: transparent;
-  display: none;
-}
+// .theme__dark {
+//   position: absolute;
+//   height: 30px;
+//   width: 30px;
+//   background: url(../img/theme/moon.svg) 0 100% no-repeat;
+//   background-color: transparent;
+//   display: none;
+// }
 
 .menu {
   height: 100%;
@@ -196,7 +293,7 @@ textarea.input {
     line-height: 22px;
     padding: 0 22px;
     transition: all 0.3s;
-    color: #fff;
+    color: $mainColor;
     &:hover {
       cursor: pointer;
       color: #157415;
@@ -206,13 +303,10 @@ textarea.input {
       color: #105810;
       transform: translateY(1px);
     }
-    @media screen and (max-width: 920px) {
+    @media screen and (max-width: 965px) {
       font-size: 16px;
       padding: 0 14px;
       line-height: 16px;
-    }
-    @media screen and (max-width: 767px) {
-      // display: none;
     }
   }
 }
@@ -263,18 +357,19 @@ textarea.input {
     height: 50px;
     font-size: 14px;
   }
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 820px) {
     display: none;
   }
 }
 .button_o {
   background-color: transparent;
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 820px) {
     display: block;
     margin-right: 50px;
   }
-  @media screen and (max-width: 350px) {
-    display: none;
+  @media screen and (max-width: 390px) {
+    width: 80px;
+    // display: none;
   }
 }
 
@@ -316,7 +411,6 @@ textarea.input {
   font-size: 70px;
   line-height: 65px;
   letter-spacing: 1px;
-  color: #ffffff;
   padding-top: 69px;
   @media screen and (max-width: 920px) {
     padding-top: 30px;
@@ -488,6 +582,9 @@ textarea.input {
 }
 .partners__img {
   max-width: 100%;
+  &-light {
+    display: none;
+  }
 }
 
 //////////////////////////////////////////////
@@ -544,7 +641,6 @@ textarea.input {
       height: 64px;
       width: 64px;
       background: rgba(255, 255, 255, 0.05);
-      color: rgb(255, 255, 255);
       &::after {
         counter-increment: section;
         content: counter(section);
@@ -579,7 +675,6 @@ textarea.input {
   line-height: 72px;
   letter-spacing: 1px;
   align-items: center;
-  color: #ffffff;
   padding-bottom: 32px;
   @media screen and (max-width: 1024px) {
     font-size: 65px;
@@ -1164,6 +1259,10 @@ textarea.input {
   line-height: 20px;
   letter-spacing: 1px;
   a {
+    transition: all 0.5s ease 0.1s;
     color: #fff;
+    &:hover {
+      color: $greenColor;
+    }
   }
 }
