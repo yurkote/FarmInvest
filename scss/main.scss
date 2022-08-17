@@ -64,14 +64,17 @@ html.light body {
   .content__item:last-child .content-list__icon {
     background: rgba(0, 128, 0, 0.1);
   }
-  .content-spollers__spoller, .response__item, .apps {
+  .content-spollers__spoller,
+  .response__item,
+  .apps {
     background: rgba(255, 255, 255, 0.35);
   }
-  .apps:before, .apps:after {
+  .apps:before,
+  .apps:after {
     border: 1px solid rgba(255, 255, 255, 0.95);
   }
   .footer-bottom-links__link a {
-    color:rgba(0, 0, 0, 1);
+    color: rgba(0, 0, 0, 1);
   }
   .footer-number__tel {
     color: #000;
@@ -84,8 +87,8 @@ html.light body {
       background-color: #000;
     }
   }
-  .menu__list.active{
-    background-color: #DDDDDD;
+  .menu__list.active {
+    background-color: #dddddd;
   }
   .menu__item a:hover {
     color: $greenColor;

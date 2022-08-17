@@ -1,171 +1,14 @@
-$(document).ready(function () {
-  var w = $(window).outerWidth();
-  var h = $(window).outerHeight();
-  var ua = window.navigator.userAgent;
-  var msie = ua.indexOf("MSIE ");
-  var isMobile = {
-    Android: function () {
-      return navigator.userAgent.match(/Android/i);
-    },
-    BlackBerry: function () {
-      return navigator.userAgent.match(/BlackBerry/i);
-    },
-    iOS: function () {
-      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-    },
-    Opera: function () {
-      return navigator.userAgent.match(/Opera Mini/i);
-    },
-    Windows: function () {
-      return navigator.userAgent.match(/IEMobile/i);
-    },
-    any: function () {
-      return (
-        isMobile.Android() ||
-        isMobile.BlackBerry() ||
-        isMobile.iOS() ||
-        isMobile.Opera() ||
-        isMobile.Windows()
-      );
-    },
-  };
-  function isIE() {
-    ua = navigator.userAgent;
-    var is_ie = ua.indexOf("MSIE ") > -1 || ua.indexOf("Trident/") > -1;
-    return is_ie;
-  }
-  if (isIE()) {
-    $("body").addClass("ie");
-  }
-  if (isMobile.any()) {
-    $("body").addClass("touch");
-  }
-  //Adaptive functions
-  $(window).resize(function (event) {
-    adaptive_function();
-  });
-  function adaptive_header(w, h) {
-    var headerMenu = $(".header-menu");
-    var headerLang = $(".header-lang");
-    if (w < 767.98) {
-      if (!headerLang.hasClass("done")) {
-        headerLang.addClass("done").appendTo(headerMenu);
-      }
-    } else {
-      if (headerLang.hasClass("done")) {
-        headerLang.removeClass("done").prependTo($(".header-top"));
-      }
-    }
-    if (w < 767.98) {
-      if (!$(".header-bottom-menu").hasClass("done")) {
-        $(".header-bottom-menu").addClass("done").appendTo(headerMenu);
-      }
-    } else {
-      if ($(".header-bottom-menu").hasClass("done")) {
-        $(".header-bottom-menu")
-          .removeClass("done")
-          .prependTo($(".header-bottom"));
-      }
-    }
-  }
+let menuIcon = document.querySelector(".header-menu__icon");
+let menuList = document.querySelector(".menu__list");
 
-  function adaptive_function() {
-    var w = $(window).outerWidth();
-    var h = $(window).outerHeight();
-    adaptive_header(w, h);
-  }
-  adaptive_function();
+menuIcon.addEventListener("click", toggleMenu);
 
-  function map(n) {
-    google.maps.Map.prototype.setCenterWithOffset = function (
-      latlng,
-      offsetX,
-      offsetY
-    ) {
-      var map = this;
-      var ov = new google.maps.OverlayView();
-      ov.onAdd = function () {
-        var proj = this.getProjection();
-        var aPoint = proj.fromLatLngToContainerPixel(latlng);
-        aPoint.x = aPoint.x + offsetX;
-        aPoint.y = aPoint.y + offsetY;
-        map.panTo(proj.fromContainerPixelToLatLng(aPoint));
-        //map.setCenter(proj.fromContainerPixelToLatLng(aPoint));
-      };
-      ov.draw = function () {};
-      ov.setMap(this);
-    };
-    var markers = new Array();
-    var infowindow = new google.maps.InfoWindow({
-      //pixelOffset: new google.maps.Size(-230,250)
-    });
-    var locations = [[new google.maps.LatLng(53.819055, 27.8813694)]];
-    var options = {
-      zoom: 10,
-      panControl: false,
-      mapTypeControl: false,
-      center: locations[0][0],
-      scrollwheel: false,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-    };
-    var map = new google.maps.Map(document.getElementById("map"), options);
-    var icon = {
-      url: "img/icons/map.svg",
-      scaledSize: new google.maps.Size(18, 20),
-      anchor: new google.maps.Point(9, 10),
-    };
-    for (var i = 0; i < locations.length; i++) {
-      var marker = new google.maps.Marker({
-        //icon:icon,
-        position: locations[i][0],
-        map: map,
-      });
-      markers.push(marker);
-    }
-  }
-  if ($("#map").length > 0) {
-    map();
-  }
-});
-
-// $(".header-menu__icon").click(function (event) {
-//   $(this).toggleClass("active");
-//   $(".header-menu").toggleClass("active");
-//   if ($(this).hasClass("active")) {
-//     $("body").data("scroll", $(window).scrollTop());
-//   }
-//   $("body").toggleClass("lock");
-//   if (!$(this).hasClass("active")) {
-//     $("body,html").scrollTop(parseInt($("body").data("scroll")));
-//   }
-// });
-
-$(".header-menu__icon").click(function (event) {
-  $(this).toggleClass("active");
-  $(".menu__list").toggleClass("active");
-  if ($(this).hasClass("active")) {
-    $("body").data("scroll", $(window).scrollTop());
-  }
-  $("body").toggleClass("lock");
-  if (!$(this).hasClass("active")) {
-    $("body,html").scrollTop(parseInt($("body").data("scroll")));
-  }
-});
-
-function ibg() {
-  $.each($(".ibg"), function (index, val) {
-    if ($(this).find("img").length > 0) {
-      $(this).css(
-        "background-image",
-        'url("' + $(this).find("img").attr("src") + '")'
-      );
-    }
-  });
+function toggleMenu() {
+  menuIcon.classList.toggle("active");
+  menuList.classList.toggle("active");
 }
-ibg();
 
 function headerScroll() {
-  // let addWindowScrollEvent = true;
   const header = document.querySelector("header.header");
   const headerShow = header.hasAttribute("data-scroll-show");
   const headerShowTimer = header.dataset.scrollShow
@@ -181,7 +24,6 @@ function headerScroll() {
       !header.classList.contains("_header-scroll")
         ? header.classList.add("_header-scroll")
         : null;
-      // console.log(`scrollTop: ${scrollTop} > scrollDirection: ${scrollDirection}`);
       if (headerShow) {
         if (scrollTop > scrollDirection) {
           // downscroll code
@@ -293,3 +135,69 @@ class MousePRLX {
 }
 // Запускаем и добавляем в объект модулей
 let mousePrlx = new MousePRLX({});
+
+window.addEventListener("load", windowLoad);
+
+function windowLoad() {
+  // HTML
+  const htmlBlock = document.documentElement;
+
+  // Отримуємо збережену тему
+  const saveUserTheme = localStorage.getItem("user-theme");
+
+  // Робота з системними налаштуваннями
+  let userTheme;
+  if (window.matchMedia) {
+    userTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  }
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", (e) => {
+      !saveUserTheme ? changeTheme() : null;
+    });
+
+  // Зміна теми по кліку
+  const themeButton = document.querySelector(".theme__button");
+  const resetButton = document.querySelector(".page__reset");
+  if (themeButton) {
+    themeButton.addEventListener("click", function (e) {
+      resetButton.classList.add("active");
+      changeTheme(true);
+    });
+  }
+  if (resetButton) {
+    resetButton.addEventListener("click", function (e) {
+      resetButton.classList.remove("active");
+      localStorage.setItem("user-theme", "");
+    });
+  }
+
+  // Функція додавання класу теми
+  function setThemeClass() {
+    if (saveUserTheme) {
+      htmlBlock.classList.add(saveUserTheme);
+      resetButton.classList.add("active");
+    } else {
+      htmlBlock.classList.add(userTheme);
+    }
+  }
+  // Додаємо клас теми
+  setThemeClass();
+
+  // Функція зміни теми
+  function changeTheme(saveTheme = false) {
+    let currentTheme = htmlBlock.classList.contains("light") ? "light" : "dark";
+    let newTheme;
+
+    if (currentTheme === "light") {
+      newTheme = "dark";
+    } else if (currentTheme === "dark") {
+      newTheme = "light";
+    }
+    htmlBlock.classList.remove(currentTheme);
+    htmlBlock.classList.add(newTheme);
+    saveTheme ? localStorage.setItem("user-theme", newTheme) : null;
+  }
+}
