@@ -201,3 +201,61 @@ function windowLoad() {
     saveTheme ? localStorage.setItem("user-theme", newTheme) : null;
   }
 }
+let btnUp = document.querySelector(".btnUp");
+let links = document.querySelectorAll(".menu__item a");
+
+for (let i = 0; i < links.length; i++) {
+  links[i].addEventListener("click", linkClicked);
+}
+
+function linkClicked(e) {
+  e.preventDefault();
+  scrollToId(this.hash);
+}
+
+if (location.hash !== "") {
+  scrollToId(location.hash, false);
+}
+
+btnUp.addEventListener("click", function () {
+  scrollToY(0);
+});
+
+window.addEventListener("scroll", function (e) {
+  let pos = window.pageYOffset;
+
+  if (pos > window.innerHeight) {
+    btnUp.classList.add("btnUp-open");
+  } else {
+    btnUp.classList.remove("btnUp-open");
+  }
+
+  for (let i = links.length - 1; i >= 0; i--) {
+    let link = links[i];
+    let target = document.querySelector(link.hash);
+
+    if (pos > target.offsetTop - window.innerHeight / 2) {
+      let activeLink = document.querySelector(".menu a.active");
+      activeLink.classList.remove("active");
+      link.classList.add("active");
+      break;
+    }
+  }
+});
+
+function scrollToId(id, animated = true) {
+  let target = document.querySelector(id);
+  let pos = target.offsetTop - 120;
+  scrollToY(pos, animated);
+}
+
+function scrollToY(pos, animated = true) {
+  if (animated && "scrollBehavior" in document.body.style) {
+    window.scrollTo({
+      top: pos,
+      behavior: "smooth",
+    });
+  } else {
+    window.scrollTo(0, pos);
+  }
+}
